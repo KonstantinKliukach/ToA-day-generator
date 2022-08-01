@@ -1,9 +1,9 @@
-import ENCOUNTER_CHANSE from "src/utils/constants";
+import ENCOUNTER_CHANSE from "../utils/constants";
 import DiceRoller from "./DiceRoller";
 
 class EncounterGenerator {
-  chance: number;
-  constructor(chance: number) {
+  private chance: number;
+  constructor(chance = 16) {
     this.chance = chance;
   }
   private rollEncounter() {

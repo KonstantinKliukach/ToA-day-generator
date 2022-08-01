@@ -125,7 +125,7 @@ class WeatherGenerator {
   }
 }
 
-class Weather {
+export class Weather {
   wind?: string;
   weather: string;
   temperature: number;

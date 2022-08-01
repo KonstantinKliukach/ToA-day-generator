@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import WeatherGenerator from "../utils/WeatherGenerator";
-new Array(20)
-  .fill(0)
-  .forEach(() => console.log(WeatherGenerator.generateWeather().weather));
+import DayOfAdventure from "../utils/DayGenerator";
+
+new Array(20).fill(0).forEach(() => console.log(new DayOfAdventure()));
 </script>
 <template>Here will be Journal</template>
