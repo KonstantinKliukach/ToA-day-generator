@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import WeatherGenerator from "../utils/WeatherGenerator";
-new Array(100)
+new Array(20)
   .fill(0)
   .forEach(() => console.log(WeatherGenerator.generateWeather().weather));
 </script>

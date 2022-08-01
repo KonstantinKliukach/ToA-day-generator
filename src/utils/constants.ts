@@ -1,0 +1,3 @@
+const ENCOUNTER_CHANSE = process.env.ENCOUNTER_CHANSE;
+
+export default ENCOUNTER_CHANSE;
