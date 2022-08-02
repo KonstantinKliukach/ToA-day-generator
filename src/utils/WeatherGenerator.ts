@@ -97,9 +97,7 @@ const seasons: Season[] = [autumn];
 class WeatherGenerator {
   generateWeather(seasonNum: Seasons = Seasons.Autumn): Weather {
     return {
-      wind: "",
       weather: this.getWeatherFromSeason(seasons[seasonNum]),
-      temperature: 0,
     };
   }
   private getWeatherFromSeason(season: Season): string {
@@ -126,13 +124,9 @@ class WeatherGenerator {
 }
 
 export class Weather {
-  wind?: string;
   weather: string;
-  temperature: number;
-  constructor(weather: string, temperature: number, wind?: string) {
-    this.wind = wind;
+  constructor(weather: string) {
     this.weather = weather;
-    this.temperature = temperature;
   }
 }
 
