@@ -7,8 +7,13 @@ defineProps<{
 
 <template>
   <div class="card-container">
-    <p class="card-title">День кприлючения №</p>
+    <p class="card-title">День прилючения №</p>
     <p class="card-subtitle">Погода</p>
+    <p class="card-text">Утром: {{ day.weather.am.weather }}</p>
+    <p class="card-text">Вечером: {{ day.weather.pm.weather }}</p>
+    <p class="card-subtitle">Случайка</p>
+    <p class="card-text">Утром: {{ day.encounters.morning || "Нет" }}</p>
+    <p class="card-text">Вечером: {{ day.encounters.evening || "Нет" }}</p>
   </div>
 </template>
 
@@ -34,6 +39,7 @@ defineProps<{
 
 .card-subtitle {
   margin: 0;
+  margin-top: 16px;
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 1.334;
