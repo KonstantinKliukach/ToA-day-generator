@@ -7,7 +7,7 @@ defineProps<{
 
 <template>
   <div class="card-container">
-    <p class="card-title">День прилючения №</p>
+    <p class="card-title">День прилючения №{{ day.dayNum }}</p>
     <p class="card-subtitle">Погода</p>
     <p class="card-text">Утром: {{ day.weather.am.weather }}</p>
     <p class="card-text">Вечером: {{ day.weather.pm.weather }}</p>

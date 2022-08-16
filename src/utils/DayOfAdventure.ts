@@ -11,8 +11,10 @@ class DayOfAdventure {
     day: number | null;
     evening: number | null;
   };
-  constructor() {
+  dayNum: number;
+  constructor(dayNum: number) {
     this.id = v4();
+    this.dayNum = dayNum;
     this.weather = {
       pm: WeatherGenerator.generateWeather(),
       am: WeatherGenerator.generateWeather(),
