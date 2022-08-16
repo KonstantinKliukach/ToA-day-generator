@@ -13,6 +13,7 @@ defineProps<{
     <p class="card-text">Вечером: {{ day.weather.pm.weather }}</p>
     <p class="card-subtitle">Случайка</p>
     <p class="card-text">Утром: {{ day.encounters.morning || "Нет" }}</p>
+    <p class="card-text">Днём: {{ day.encounters.day || "Нет" }}</p>
     <p class="card-text">Вечером: {{ day.encounters.evening || "Нет" }}</p>
   </div>
 </template>
