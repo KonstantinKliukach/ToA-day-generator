@@ -9,7 +9,7 @@ defineProps<{
 
 <style scoped>
 button {
-  background-color: #009688;
+  background-color: var(--main-green);
   padding: 8px 16px;
   border: 0;
   border-radius: 5%;
@@ -18,6 +18,6 @@ button {
 }
 
 button:hover {
-  background-color: #33ab9f;
+  background-color: var(secondary-green);
 }
 </style>
