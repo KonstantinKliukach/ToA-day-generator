@@ -1,10 +1,11 @@
 <script setup lang="ts">
 defineProps<{
   onAdd: () => void;
+  disabled: boolean;
 }>();
 </script>
 <template>
-  <button @click="onAdd">Добавить день</button>
+  <button @click="onAdd" v-bind:disabled="disabled">Добавить день</button>
 </template>
 
 <style scoped>
@@ -18,6 +19,10 @@ button {
 }
 
 button:hover {
-  background-color: var(secondary-green);
+  background-color: var(--secondary-green);
+}
+
+button:disabled {
+  background-color: var(--pale-green);
 }
 </style>
