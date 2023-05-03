@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import useDaysOfadventureStore from "../stores/daysOfAdventure";
-import AddButton from "../components/Add-Button.vue";
+import Button from "../components/Custom-Button.vue";
 import DayCard from "../components/Day-Card.vue";
 const days = useDaysOfadventureStore();
 days.getDays();
 </script>
 <template>
-  <AddButton :onAdd="days.addDay" :disabled="days.loading" />
+  <Button :onClick="days.addDay" :disabled="days.loading">Добавить день</Button>
   <div class="grid-container">
-    <DayCard v-for="day in days.daysGetter" :day="day" :key="day.id" />
+    <DayCard v-for="day in days.daysGetter" :day="day" :key="day._id" />
   </div>
 </template>
 

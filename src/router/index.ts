@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import JournalView from "../views/JournalView.vue";
+import DaysView from "../views/DaysView.vue";
+import DayEditView from "../views/DayEditView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +8,17 @@ const router = createRouter({
     {
       path: "/",
       name: "main",
-      component: JournalView,
+      redirect: { name: "days" },
+    },
+    {
+      path: "/days",
+      name: "days",
+      component: DaysView,
+    },
+    {
+      name: "day-edit",
+      path: "/days/:id",
+      component: DayEditView,
     },
   ],
 });

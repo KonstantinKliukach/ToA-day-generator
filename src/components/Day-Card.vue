@@ -1,13 +1,26 @@
 <script setup lang="ts">
-import type DayOfAdventure from "../utils/DayOfAdventure";
+import type { DayOfAdventure } from "src/stores/daysOfAdventure";
+import Button from "./Custom-Button.vue";
+import EditButton from "./Edit-Button.vue";
+import CustomLink from "./Custom-Link.vue";
+
 defineProps<{
   day: DayOfAdventure;
+  isEdit?: boolean;
 }>();
+
+const onClick = () => {
+  console.log("saved");
+};
 </script>
 
 <template>
   <div class="card-container">
-    <p class="card-title">День прилючения №{{ day.dayNum }}</p>
+    <div class="card-header">
+      <p class="card-title">День прилючения №{{ day.dayNum }}</p>
+      <EditButton v-if="!isEdit" :id="day._id" />
+      <CustomLink v-else link="/days">back</CustomLink>
+    </div>
     <p class="card-subtitle">Погода</p>
     <p class="card-text">Утром: {{ day.weather.am.weather }}</p>
     <p class="card-text">Вечером: {{ day.weather.pm.weather }}</p>
@@ -15,6 +28,10 @@ defineProps<{
     <p class="card-text">Утром: {{ day.encounters.morning || "Нет" }}</p>
     <p class="card-text">Днём: {{ day.encounters.day || "Нет" }}</p>
     <p class="card-text">Вечером: {{ day.encounters.evening || "Нет" }}</p>
+    <p v-if="day.notes || isEdit" class="card-subtitle">Заметки</p>
+    <p v-if="day.notes && !isEdit" class="card-text">{{ day.notes }}</p>
+    <textarea rows="5" cols="33" v-if="isEdit" class="notes-edit" />
+    <Button v-if="isEdit" class="save-button" :onClick="onClick">Save</Button>
   </div>
 </template>
 
@@ -26,13 +43,30 @@ defineProps<{
   overflow: hidden;
   min-width: 275px;
 }
+
+.save-button {
+  width: 33%;
+  margin: 0 auto;
+  margin-top: 1.5em;
+  display: block;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35em;
+}
+
+.card-block {
+  margin-bottom: 0.35em;
+}
 .card-title {
   margin: 0;
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.5;
   letter-spacing: 0.00938em;
-  margin-bottom: 0.35em;
   color: rgba(0, 0, 0, 0.6);
   font-size: 14px;
 }
@@ -44,5 +78,18 @@ defineProps<{
   font-size: 1.5rem;
   line-height: 1.334;
   letter-spacing: 0em;
+}
+
+.notes-edit {
+  resize: none;
+  border-radius: 4px;
+  padding: 1em;
+  margin-top: 1em;
+  min-width: 100%;
+}
+
+.notes-edit:focus {
+  outline: none !important;
+  border: 1px solid var(--main-green);
 }
 </style>

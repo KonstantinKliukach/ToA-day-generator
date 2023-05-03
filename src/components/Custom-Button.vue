@@ -1,11 +1,13 @@
 <script setup lang="ts">
 defineProps<{
-  onAdd: () => void;
-  disabled: boolean;
+  onClick: () => void;
+  disabled?: boolean;
 }>();
 </script>
 <template>
-  <button @click="onAdd" v-bind:disabled="disabled">Добавить день</button>
+  <button @click="onClick" v-bind:disabled="disabled">
+    <slot></slot>
+  </button>
 </template>
 
 <style scoped>

@@ -6,8 +6,8 @@ interface Weather {
   weather: string;
 }
 
-interface DayOfAdventure {
-  id: string;
+export interface DayOfAdventure {
+  _id: string;
   weather: { pm: Weather; am: Weather };
   encounters: {
     morning: number | null;
@@ -15,6 +15,7 @@ interface DayOfAdventure {
     evening: number | null;
   };
   dayNum: number;
+  notes?: string;
 }
 
 const useDaysOfadventureStore = defineStore({
@@ -26,6 +27,8 @@ const useDaysOfadventureStore = defineStore({
   }),
   getters: {
     daysGetter: (state) => state.days,
+    dayGetter: (state) => (id: string) =>
+      state.days.find((day) => day._id === id),
     currentDayGetter: (state) => state.currentDay,
   },
   actions: {
@@ -40,8 +43,10 @@ const useDaysOfadventureStore = defineStore({
     async getDays() {
       this.loading = true;
       const { data } = await axios.get<DayOfAdventure[]>(`${API}/days`);
-      this.days.push(...data);
-      this.currentDay = data[0].dayNum;
+      this.days = [...data];
+      if (data.length) {
+        this.currentDay = data[0].dayNum;
+      }
       this.loading = false;
     },
   },

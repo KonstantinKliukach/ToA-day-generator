@@ -1,6 +1,8 @@
 <template>
   <main class="app">
-    <slot></slot>
+    <Suspense>
+      <slot></slot>
+    </Suspense>
   </main>
 </template>
 
