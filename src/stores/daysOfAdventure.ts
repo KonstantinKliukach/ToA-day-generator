@@ -1,22 +1,6 @@
-import axios from "axios";
 import { defineStore } from "pinia";
-import { API } from "../utils/constants";
-
-interface Weather {
-  weather: string;
-}
-
-export interface DayOfAdventure {
-  _id: string;
-  weather: { pm: Weather; am: Weather };
-  encounters: {
-    morning: number | null;
-    day: number | null;
-    evening: number | null;
-  };
-  dayNum: number;
-  notes?: string;
-}
+import type { DayOfAdventure } from "src/services/DaysClient";
+import DaysClient from "../services/DaysClient";
 
 const useDaysOfadventureStore = defineStore({
   id: "days",
@@ -34,18 +18,16 @@ const useDaysOfadventureStore = defineStore({
   actions: {
     async addDay() {
       const nextDayNum = this.currentDay + 1;
-      const { data } = await axios.post<DayOfAdventure>(`${API}/days`, {
-        dayNum: nextDayNum,
-      });
+      const data = await DaysClient.addDay(nextDayNum);
       this.days = [data, ...this.days];
       this.currentDay = nextDayNum;
     },
     async getDays() {
       this.loading = true;
-      const { data } = await axios.get<DayOfAdventure[]>(`${API}/days`);
-      this.days = [...data];
-      if (data.length) {
-        this.currentDay = data[0].dayNum;
+      const days = await DaysClient.getDays();
+      this.days = [...days];
+      if (days.length) {
+        this.currentDay = days[0].dayNum;
       }
       this.loading = false;
     },

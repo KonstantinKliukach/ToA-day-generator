@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import axios from "axios";
-import { API } from "../utils/constants";
-import type { DayOfAdventure } from "src/stores/daysOfAdventure";
 import DayCard from "../components/Day-Card.vue";
+import DaysClient from "../services/DaysClient";
 
 const route = useRoute();
 const id = route.params.id; // read parameter id (it is reactive)
 let isLoading = true;
 
-const { data } = await axios.get<DayOfAdventure>(`${API}/days/${id}`);
+const day = await DaysClient.getDay(id as string);
 
 isLoading = false;
 </script>
@@ -17,7 +15,7 @@ isLoading = false;
 <template>
   <p v-if="isLoading">Loading</p>
   <div v-else class="card-container">
-    <DayCard is-edit :day="data" />
+    <DayCard is-edit :day="day" />
   </div>
 </template>
 

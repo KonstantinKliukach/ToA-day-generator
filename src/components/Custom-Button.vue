@@ -1,11 +1,5 @@
-<script setup lang="ts">
-defineProps<{
-  onClick: () => void;
-  disabled?: boolean;
-}>();
-</script>
 <template>
-  <button @click="onClick" v-bind:disabled="disabled">
+  <button>
     <slot></slot>
   </button>
 </template>

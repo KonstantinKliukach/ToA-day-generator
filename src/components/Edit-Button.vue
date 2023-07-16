@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DayOfAdventure } from "src/stores/daysOfAdventure";
+import type { DayOfAdventure } from "../services/DaysClient";
 import CustomLink from "./Custom-Link.vue";
 
 defineProps<{

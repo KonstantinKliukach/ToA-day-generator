@@ -1,17 +1,13 @@
 <script setup lang="ts">
-import type { DayOfAdventure } from "src/stores/daysOfAdventure";
-import Button from "./Custom-Button.vue";
+import type { DayOfAdventure } from "../services/DaysClient";
 import EditButton from "./Edit-Button.vue";
 import CustomLink from "./Custom-Link.vue";
+import NotesEditForm from "./Notes-Edit-Form.vue";
 
 defineProps<{
   day: DayOfAdventure;
   isEdit?: boolean;
 }>();
-
-const onClick = () => {
-  console.log("saved");
-};
 </script>
 
 <template>
@@ -30,8 +26,11 @@ const onClick = () => {
     <p class="card-text">Вечером: {{ day.encounters.evening || "Нет" }}</p>
     <p v-if="day.notes || isEdit" class="card-subtitle">Заметки</p>
     <p v-if="day.notes && !isEdit" class="card-text">{{ day.notes }}</p>
-    <textarea rows="5" cols="33" v-if="isEdit" class="notes-edit" />
-    <Button v-if="isEdit" class="save-button" :onClick="onClick">Save</Button>
+    <NotesEditForm
+      v-if="isEdit"
+      :id="day._id"
+      :notes="day.notes"
+    ></NotesEditForm>
   </div>
 </template>
 
@@ -42,13 +41,6 @@ const onClick = () => {
   box-shadow: var(--block-shadow);
   overflow: hidden;
   min-width: 275px;
-}
-
-.save-button {
-  width: 33%;
-  margin: 0 auto;
-  margin-top: 1.5em;
-  display: block;
 }
 
 .card-header {
@@ -78,14 +70,6 @@ const onClick = () => {
   font-size: 1.5rem;
   line-height: 1.334;
   letter-spacing: 0em;
-}
-
-.notes-edit {
-  resize: none;
-  border-radius: 4px;
-  padding: 1em;
-  margin-top: 1em;
-  min-width: 100%;
 }
 
 .notes-edit:focus {
