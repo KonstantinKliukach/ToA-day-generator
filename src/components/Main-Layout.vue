@@ -1,13 +1,15 @@
 <template>
-  <main class="main">
-    <Suspense>
-      <slot></slot>
-    </Suspense>
-  </main>
+  <v-layout>
+    <div class="app-content">
+      <Suspense>
+        <slot></slot>
+      </Suspense>
+    </div>
+  </v-layout>
 </template>
 
 <style scoped>
-.main {
+.app-content {
   display: flex;
   flex-direction: column;
   flex: 1;

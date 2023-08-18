@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import type { DayOfAdventure } from "src/services/DaysClient";
 import DaysClient from "../services/DaysClient";
+import type { DaysFilters } from "./daysFilters";
 
 const useDaysOfadventureStore = defineStore({
   id: "days",
@@ -22,9 +23,9 @@ const useDaysOfadventureStore = defineStore({
       this.days = [data, ...this.days];
       this.currentDay = nextDayNum;
     },
-    async getDays() {
+    async getDays(filters?: DaysFilters) {
       this.loading = true;
-      const days = await DaysClient.getDays();
+      const days = await DaysClient.getDays(filters);
       this.days = [...days];
       if (days.length) {
         this.currentDay = days[0].dayNum;

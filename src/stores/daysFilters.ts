@@ -1,18 +1,30 @@
 import { defineStore } from "pinia";
 
+export interface DaysFilters {
+  onlyWithNotes?: boolean;
+}
+
+const initialState: DaysFilters = {
+  onlyWithNotes: false,
+};
+
 const useDaysFiltersStore = defineStore({
   id: "filters",
   state: () => ({
     filters: {
-      onlyWithNotes: false,
+      ...initialState,
     },
   }),
   getters: {
     getFilters: (state) => state.filters,
+    getOnlyWithNotes: (state) => state.filters.onlyWithNotes,
   },
   actions: {
-    setOnlyWithNotesFolter(newState: boolean) {
-      this.filters = { ...this.filters, onlyWithNotes: newState };
+    setOnlyWithNotes(newValue: boolean) {
+      this.filters.onlyWithNotes = newValue;
+    },
+    clearAll() {
+      this.filters = { ...initialState };
     },
   },
 });

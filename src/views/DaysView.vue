@@ -1,22 +1,26 @@
 <script setup lang="ts">
 import useDaysOfadventureStore from "../stores/daysOfAdventure";
-import Button from "../components/Custom-Button.vue";
+import usedDaysFiltersStore from "../stores/daysFilters";
 import DaysFiltersPanel from "../components/Days-Filters-Panel.vue";
 import DayCard from "../components/Day-Card.vue";
+
+const filters = usedDaysFiltersStore();
 const days = useDaysOfadventureStore();
-days.getDays();
+days.getDays(filters.getFilters);
 </script>
 <template>
-  <Button :onClick="days.addDay" :disabled="days.loading">Добавить день</Button>
-  <div class="layout-container" v-if="!days.loading">
+  <main class="layout-container">
     <aside><DaysFiltersPanel /></aside>
-    <div class="grid-container">
+    <main class="grid-container" v-if="!days.loading">
       <DayCard v-for="day in days.daysGetter" :day="day" :key="day._id" />
+    </main>
+    <div class="loading-container" v-else>
+      <v-progress-circular
+        indeterminate
+        color="teal-lighten-1"
+      ></v-progress-circular>
     </div>
-  </div>
-  <div class="loading-container" v-else>
-    <v-progress-circular indeterminate color="green"></v-progress-circular>
-  </div>
+  </main>
 </template>
 
 <style scoped>
@@ -34,7 +38,7 @@ days.getDays();
 }
 
 .loading-container {
-  flex: 1;
+  height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;

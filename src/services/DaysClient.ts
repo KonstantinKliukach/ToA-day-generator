@@ -1,3 +1,4 @@
+import type { DaysFilters } from "src/stores/daysFilters";
 import { client } from "./client";
 
 interface Weather {
@@ -23,8 +24,12 @@ class DaysService {
     this.prefix = "/days";
   }
 
-  async getDays() {
-    const { data } = await client.get<DayOfAdventure[]>(this.prefix);
+  async getDays(filters?: DaysFilters) {
+    const { data } = await client.get<DayOfAdventure[]>(this.prefix, {
+      params: {
+        ...filters,
+      },
+    });
     return data;
   }
 

@@ -1,22 +1,39 @@
 <script setup lang="ts">
-import type { DayOfAdventure } from "../services/DaysClient";
 import Button from "../components/Custom-Button.vue";
 import useDaysOfadventureStore from "../stores/daysOfAdventure";
 import usedDaysFiltersStore from "../stores/daysFilters";
+import { ref } from "vue";
 
 const days = useDaysOfadventureStore();
 const filters = usedDaysFiltersStore();
+const onlyWithNotes = ref(filters.getOnlyWithNotes || false);
+
+const handleSubmit = () => {
+  filters.setOnlyWithNotes(onlyWithNotes.value);
+  days.getDays(filters.getFilters);
+};
+
+const handleClear = () => {
+  filters.clearAll();
+  onlyWithNotes.value = false;
+  days.getDays();
+};
 </script>
 
 <template>
-  <div class="card-container">
-    <div class="button-block">
-      <Button :onClick="days.getDays" :disabled="days.loading"
-        >Применить</Button
-      >
-      <Button :onClick="days.getDays" :disabled="days.loading">Сбросить</Button>
+  <form @submit.prevent="handleSubmit" class="card-container">
+    <div>
+      <v-checkbox
+        label="Только с заметками"
+        color="teal-lighten-1"
+        v-model="onlyWithNotes"
+      ></v-checkbox>
     </div>
-  </div>
+    <div class="button-block">
+      <Button type="submit" :disabled="days.loading">Применить</Button>
+      <Button :onClick="handleClear" :disabled="days.loading">Сбросить</Button>
+    </div>
+  </form>
 </template>
 
 <style scoped>

@@ -14,14 +14,7 @@ isLoading = false;
 
 <template>
   <p v-if="isLoading">Loading</p>
-  <div v-else class="card-container">
-    <DayCard is-edit :day="day" />
-  </div>
+  <DayCard is-edit :day="day" v-else />
 </template>
 
-<style scoped>
-.card-container {
-  margin: 0 auto;
-  max-width: 675px;
-}
-</style>
+<style scoped></style>
